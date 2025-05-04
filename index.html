@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ВОЙНА И МИР - ТОЛЬКО У НАС!</title>
+    <style>
+        body {
+            background-color: #8A2BE2;
+            font-family: 'Papyrus', fantasy;
+            color: #FF4500;
+            text-align: center;
+            background-image: repeating-linear-gradient(45deg, #8A2BE2, #5F9EA0 10%);
+        }
+        #main {
+            width: 80%;
+            margin: 0 auto;
+            border: 15px ridge #FF6347;
+            padding: 10px;
+            background-color: #9932CC;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 50px;
+            text-shadow: 3px 3px 0 #000000;
+            animation: blink 0.5s infinite;
+            color: #00FA9A;
+        }
+        #content {
+            font-size: 14px;
+            line-height: 10px;
+            text-align: justify;
+            transform: rotate(1deg);
+            color: #FFD700;
+        }
+        #login {
+            background-color: #4B0082;
+            padding: 40px;
+            border: 12px double #7CFC00;
+            margin-top: 20px;
+        }
+        input {
+            background-color: #FF69B4;
+            color: #000080;
+            border: 4px groove #FF8C00;
+            font-size: 20px;
+            padding: 8px;
+            margin: 8px;
+        }
+        button {
+            background-color: #2F4F4F;
+            color: #FFA07A;
+            font-size: 25px;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            animation: shake 0.7s infinite;
+        }
+        .ad {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background-color: #FF1493;
+            color: #000000;
+            font-size: 20px;
+            animation: spin 3s linear infinite;
+            border: 5px dotted #00FFFF;
+        }
+        #ad1 {
+            top: 15px;
+            left: 15px;
+        }
+        #ad2 {
+            bottom: 15px;
+            right: 15px;
+        }
+        #marquee {
+            background-color: #000000;
+            color: #FF0000;
+            font-size: 18px;
+            padding: 8px;
+            position: fixed;
+            bottom: 100;
+            width: 100%;
+            z-index: 999;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        @keyframes shake {
+            0% { transform: translate(0); }
+            25% { transform: translate(3px, 3px); }
+            50% { transform: translate(-3px, -3px); }
+            75% { transform: translate(3px, -3px); }
+            100% { transform: translate(-3px, 3px); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #9370DB;
+            color: #006400;
+            padding: 15px;
+            border: 8px outset #FFD700;
+            z-index: 1000;
+            display: none;
+        }
+        #rickroll {
+            display: none;
+            background-color: #000000;
+            padding: 20px;
+        }
+        .captcha-image {
+            width: 90px;
+            height: 90px;
+            margin: 8px;
+            cursor: pointer;
+            border: 3px solid #BA55D3;
+        }
+        .captcha-image:hover {
+            border: 3px solid #3CB371;
+        }
+        #captcha-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        #local-video {
+            width: 560px;
+            height: 315px;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="marquee">
+        <marquee behavior="scroll" direction="left" scrollamount="15">⚠️ ВНИМАНИЕ! ВАША ВЕРСИЯ БРАУЗЕРА УСТАРЕЛА! НЕМЕДЛЕННО ОБНОВИТЕ ЕЁ! ⚠️</marquee>
+    </div>
+
+    <div id="main">
+        <h1>ВОЙНА И МИР - ЭКСКЛЮЗИВ!</h1>
+        <div id="content">
+            <p>Только у нас полная версия романа! Для чтения требуется регистрация!</p>
+        </div>
+
+        <div id="login">
+            <h2 style="color: #98FB98; font-size: 28px;">РЕГИСТРАЦИЯ</h2>
+            <input type="text" placeholder="Ваше имя" /><br>
+            <input type="email" placeholder="Ваш email" /><br>
+            <input type="password" placeholder="Пароль" /><br>
+            <input type="password" placeholder="Повторите пароль" /><br>
+            <input type="tel" placeholder="Номер телефона" /><br>
+            <button onclick="showCaptcha()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+        </div>
+
+        <div class="ad" id="ad1">
+            <p>СКАЧАТЬ ИГРУ БЕСПЛАТНО!</p>
+        </div>
+        <div class="ad" id="ad2">
+            <p>ВАШ ГОРОД НЕНАВИДИТ ВАС! УЗНАЙТЕ ПОЧЕМУ!</p>
+        </div>
+    </div>
+
+    <div class="popup" id="captcha-popup">
+        <h2>ПОДТВЕРДИТЕ, ЧТО ВЫ ЧЕЛОВЕК!</h2>
+        <p>Выберите все изображения с пандами:</p>
+        <div id="captcha-container">
+            <img src="https://placebear.com/100/100" class="captcha-image" onclick="selectCaptcha(this)">
+            <img src="https://placebear.com/101/101" class="captcha-image" onclick="selectCaptcha(this)">
+            <img src="https://placebear.com/102/102" class="captcha-image" onclick="selectCaptcha(this)">
+            <img src="https://placebear.com/103/103" class="captcha-image" onclick="selectCaptcha(this)">
+        </div>
+        <button onclick="verifyCaptcha()">ПОДТВЕРДИТЬ</button>
+    </div>
+
+    <div class="popup" id="sms-popup">
+        <h2>ПОСЛЕДНИЙ ШАГ!</h2>
+        <p>Введите код из СМС (просто нажмите кнопку):</p>
+        <input type="text" placeholder="Код из СМС" id="sms-code">
+        <button onclick="showBook()">ПОДТВЕРДИТЬ</button>
+    </div>
+
+    <div id="book" style="display: none;">
+        <h2 style="color: #00FFFF;">Война и мир - Том 1, Часть 1, Глава 1</h2>
+        <div style="background-color: #483D8B; color: #FFE4B5; padding: 15px; text-align: left;">
+            <p>— Eh bien, mon prince. Gênes et Lucques ne sont plus que des apanages, des поместья, de la famille Buonaparte. Non, je vous préviens que si vous ne me dites pas que nous avons la guerre, si vous vous permettez encore de pallier toutes les infamies, toutes les atrocités de cet Antichrist (ma parole, j'y crois) — je ne vous connais plus, vous n'êtes plus mon ami, vous n'êtes plus мой верный раб, comme vous dites.</p>
+        </div>
+        <a href="https://rutube.ru/video/f3b615db135287a64584737e664e1e4b/">Далее</a>
+    </div>
+
+    <div id="rickroll" style="display: none;">
+        <h2 style="color: #FF6347;">ПОЗДРАВЛЯЕМ! ВЫ ПОЛУЧИЛИ ПРИЗ!</h2>
+        <div id="local-video">
+            <video width="560" height="315" autoplay controls>
+                <source src="" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+        <p style="color: #ADFF2F; font-size: 20px;">ПРОДОЛЖИТЬТЕ ЧТЕНИЕ ПОСЛЕ ПРОСМОТРА!</p>
+    </div>
+
+    <script>
+        let selectedImages = 0;
+
+        function showCaptcha() {
+            document.getElementById("login").style.display = "none";
+            document.getElementById("captcha-popup").style.display = "block";
+        }
+
+        function selectCaptcha(element) {
+            if (element.style.border === "3px solid #3CB371") {
+                element.style.border = "3px solid #BA55D3";
+                selectedImages--;
+            } else {
+                element.style.border = "3px solid #3CB371";
+                selectedImages++;
+            }
+        }
+
+        function verifyCaptcha() {
+            if (selectedImages >= 2) {
+                document.getElementById("captcha-popup").style.display = "none";
+                document.getElementById("sms-popup").style.display = "block";
+            } else {
+                alert("Выберите хотя бы 2 картинки!");
+            }
+        }
+
+        function showBook() {
+            document.getElementById("sms-popup").style.display = "none";
+            document.getElementById("book").style.display = "block";
+        }
+
+        function rickroll() {
+            document.getElementById("book").style.display = "none";
+            document.getElementById("rickroll").style.display = "block";
+            
+            // Автовоспроизведение видео
+            const video = document.querySelector('video');
+            video.play().catch(e => {
+                alert("Нажмите на видео, чтобы начать воспроизведение!");
+            });
+        }
+
+        // Рандомные всплывающие окна
+        setInterval(() => {
+            alert("ВНИМАНИЕ! ВАШЕ УСТРОЙСТВО ПЕРЕГРЕВАЕТСЯ!");
+        }, 45000);
+
+        // Движение рекламы
+        setInterval(() => {
+            const ads = document.querySelectorAll('.ad');
+            ads.forEach(ad => {
+                ad.style.left = Math.random() * 70 + '%';
+                ad.style.top = Math.random() * 70 + '%';
+            });
+        }, 2500);
+    </script>
+</body>
+</html>
